@@ -4,7 +4,7 @@
 <ul>
   <% @products.each do |product| %>
     <li>
-      <strong>Title:</strong> <%= product.title %><br>
+      <strong>Title:</strong> <%= link_to product.title, product_path(product) %><br>
       <strong>Price:</strong> <%= product.price %><br>
       <strong>Description:</strong> <%= product.description %><br>
       <strong>Stock Quantity:</strong> <%= product.stock_quantity %>
