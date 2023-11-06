@@ -8,6 +8,12 @@
   <% @customers.each do |customer| %>
     <%= render partial: 'customers/customer', locals: { customer: customer } %>
   <% end %>
-  </div>
+</div>
+
+<h1>Customers with Missing Email Addresses</h1>
+
+<% @customers.each do |customer| %>
+  <%= render partial: 'customer', locals: { customer: customer } %>
+<% end %>
 
 <%= link_to "New customer", new_customer_path %>
