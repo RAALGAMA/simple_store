@@ -1,19 +1,27 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
 require "faker"
+require "csv"
 
 Product.delete_all
+Category.delete_all
 
-676.times do
-  Product.create(
-    title:          Faker::Commerce.product_name,
-    price:          Faker::Commerce.price(range: 0..1000.0, as_string: false),
-    stock_quantity: Faker::Number.between(from: 0, to: 1000)
+filename = Rails.root.join("db/products.csv")
+puts "Loading data from csv file: #{filename}"
+csv_data = File.read(filename)
+products = CSV.parse(csv_data, headers: true, encoding: "utf-8")
+
+products.each do |product_data|
+  category = Category.find_or_create_by(name: product_data["category"])
+  product = Product.find_or_create_by(
+    title:          product_data["name"],
+    description:    product_data["description"],
+    price:          product_data["price"],
+    stock_quantity: product_data["stock quantity"],
+    category:
   )
 end
-puts "676 products seeded successfully"
+
+Customer.create(full_name: "John Doe", phone_number: "123-456-7890", email_address: "john@example.com", notes: "Some notes")
+Customer.create(full_name: "Jane Smith", phone_number: "987-654-3210", notes: "More notes")
+Customer.create(full_name: "aaaaaaaa", phone_number: "123-876-7810", email_address: "aaaaa@example.com", notes: "aaaaaa")
+Customer.create(full_name: "bbbbbbbb", phone_number: "911-554-3999", notes: "bbbbb")
+Customer.create(full_name: "cccccccc", phone_number: "123-888-7810", email_address: "ccccc@example.com", notes: "cccccc")
