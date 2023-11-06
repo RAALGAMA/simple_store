@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   resources :products, only: [:index]
   get "/products", to: "products#index"
   get "/products/:id", to: "products#show", as: "product"
+  get 'customers/alphabetized', to: 'customers#alphabetized'
 end

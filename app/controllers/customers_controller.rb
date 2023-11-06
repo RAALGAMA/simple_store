@@ -67,4 +67,8 @@ class CustomersController < ApplicationController
     def customer_params
       params.require(:customer).permit(:full_name, :phone_number, :email_address, :notes)
     end
+
+    def alphabetized
+      @customers = Customer.order(:full_name)
+    end
 end
